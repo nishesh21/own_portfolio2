@@ -17,13 +17,13 @@ Content to personalize: `src/data/content.ts` (name, email, GitHub, LinkedIn, pr
 
 ---
 
-## 2026-09-05 — first GitHub push
+## 2026-09-05 — push to GitHub
 
-Remote: [nishesh21/own_portfolio](https://github.com/nishesh21/own_portfolio.git) (empty besides a README).
+Target remote: [nisheshgogia/own_portfolio](https://github.com/nisheshgogia/own_portfolio.git).
 
-Important: `git rev-parse --show-toplevel` from this folder resolved to `/Users/nishesh/Desktop`, not the portfolio. Pushing from there would have uploaded the entire Desktop. Fix: `git init` **inside** `my_own_portfolio` so this project is its own repository, then add `origin` and push `main`.
+This folder already had its own `.git` (so we do not push the parent Desktop tree). Previous `origin` pointed at `nishesh21/own_portfolio`; it was retargeted to the `nisheshgogia` repo, then `main` was pushed.
 
-`.gitignore` already excludes `node_modules/`, `.next/`, `.env*.local`, and `next-env.d.ts`.
+`.gitignore` still excludes `node_modules/`, `.next/`, `.env*.local`, and `next-env.d.ts`.
 
 ---
 

@@ -267,35 +267,27 @@ We hardcoded `260` as the dash length. The precise way is `path.getTotalLength()
 
 ---
 
-## 15. Git: nested repos, remotes, first push
+## 15. Git remotes and first push
 
-**Q. `git status` from the project folder showed `?? ../Wine-Prediction-Model/` and `?? ./`. What does that mean?**
+**Q. `git remote -v` showed a different GitHub user than the repo you wanted. What do you do?**
 
-**A.** Git walks up until it finds a `.git` directory. Here the repo root was `~/Desktop`, so every sibling folder on the Desktop was untracked in that repo. `?? ./` is this portfolio, still untracked at the parent. Never `git add .` from that root — you would stage unrelated projects, screenshots, and secrets.
-
-**Q. How do you put a project that lives inside another git tree on GitHub by itself?**
-
-**A.** Initialize a **new** repo in the project folder (`git init`). The inner `.git` makes this directory its own root. Then:
+**A.** Remotes are just named URLs. Change the existing one without rewriting history:
 
 ```bash
-git add .
-git commit -m "..."
-git remote add origin https://github.com/<user>/<repo>.git
-git branch -M main
-git push -u origin main
+git remote set-url origin https://github.com/nisheshgogia/own_portfolio.git
 ```
 
-The parent repo will now typically see this folder as an untracked directory or, if someone `git add`s it without care, as a **gitlink** (empty-looking submodule). Keep the parent from tracking it.
+Or add a second remote (`git remote add github …`) and `git push -u github main`. `set-url` is right when the old URL was simply wrong.
 
-**Q. What is `git remote add origin` vs `git push -u origin main`?**
+**Q. What is `git push -u origin main`?**
 
-**A.** `remote add` only stores a URL named `origin`. Nothing is uploaded. `push -u origin main` sends `main` to that URL and sets **upstream** so later `git push` / `git pull` know the default. `-u` is ` --set-upstream`.
+**A.** It uploads the local `main` branch to `origin` and sets **upstream**, so later `git push` / `git pull` know the default remote branch. `-u` is `--set-upstream`. `git remote add` / `set-url` only stores a URL — nothing is uploaded until `push`.
 
 **Q. The GitHub repo already has a README commit. Why might the first push fail?**
 
-**A.** Histories are unrelated — local has our Next.js commit, remote has a different root commit. Git refuses a non-fast-forward push. Options:
+**A.** Histories are unrelated — local has the Next.js commits, remote has a different root commit. Git refuses a non-fast-forward push. Options:
 
-1. `git pull origin main --allow-unrelated-histories`, resolve, then push (keeps both histories).
+1. `git pull origin main --allow-unrelated-histories`, resolve any conflict (usually `README.md`), then push. Keeps both histories.
 2. `git push --force` — overwrites remote. Only if you own the repo and the README is disposable. Never force-push a shared `main` without saying so.
 
 **Q. What should not be committed from a Next.js app?**
