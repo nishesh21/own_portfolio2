@@ -1,6 +1,7 @@
 import About from "@/components/About";
 import Contact from "@/components/Contact";
 import EmbeddingField from "@/components/EmbeddingField";
+import EditorialFolio from "@/components/EditorialFolio";
 import Experiments from "@/components/Experiments";
 import Hero from "@/components/Hero";
 import SiteNav from "@/components/SiteNav";
@@ -15,6 +16,7 @@ export default function Home() {
       <SiteNav />
       <Hero />
       <TickStrip />
+      <EditorialFolio />
       <Experiments />
       <StackPlot />
       <About />

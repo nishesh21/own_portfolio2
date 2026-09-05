@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 
 const links = [
+  { href: "#folio", label: "folio" },
   { href: "#work", label: "experiments" },
   { href: "#stack", label: "latent skills" },
   { href: "#about", label: "lab notes" },
@@ -28,7 +29,7 @@ export default function SiteNav() {
       <a href="#top" className="text-sm tracking-tight text-lime">
         nk::lab
       </a>
-      <nav className="hidden items-center gap-6 text-xs text-mute sm:flex">
+      <nav className="hidden items-center gap-4 text-xs text-mute md:flex lg:gap-6">
         {links.map((l) => (
           <a
             key={l.href}

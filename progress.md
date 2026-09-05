@@ -15,6 +15,29 @@ npm run build && npx next start -p 3001
 
 Content to personalize: `src/data/content.ts` (name, email, GitHub, LinkedIn, projects).
 
+Start here for humans: `README.md` (what the site is, how to run it, folder map, what to edit).
+
+---
+
+## 2026-09-05 — four-page editorial folio
+
+Added `src/components/EditorialFolio.tsx`, inspired by a four-panel printed portfolio reference but adapted to the existing ink / cream / gold / sky system.
+
+- Responsive two-by-two spread: cover, about, selected work, and connect.
+- Cover uses a CSS-built avatar instead of adding a stock portrait.
+- About reuses `profile` data and presents toolkit tags.
+- Selected work reuses the first six `experiments`; no duplicate project data.
+- Connect reuses profile email and social links.
+- The spread follows pointer position with a subtle radial gold spotlight.
+- Added `folio` to the fixed navigation and placed the section between the ticker and full experiment cards.
+- On mobile, the spread collapses to one page per row.
+
+---
+
+## 2026-09-05 — README rewrite
+
+Replaced the short merge README with a project-first doc: what the site is, clone/run table, page sections in order, folder map, how to edit `content.ts`, design tokens, reduced-motion note, and pointers to `progress.md` / `interview_questions.md`. Goal is that a stranger (or future you) can run and change copy without reading the source first.
+
 ---
 
 ## 2026-09-05 — push to GitHub

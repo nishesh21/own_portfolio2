@@ -300,6 +300,46 @@ Or add a second remote (`git remote add github …`) and `git push -u github mai
 
 ---
 
+## 16. Writing a README that stays useful
+
+**Q. What belongs in a project README vs `progress.md` vs comments?**
+
+**A.** README is for a stranger at clone time: what it is, how to run it, where to change it, how the folders map. `progress.md` is a dated diary of *why* decisions happened (port conflicts, color changes). Code comments explain non-obvious *how*. If you dump the diary into the README, nobody reads it; if you skip the README, they have to reverse-engineer `page.tsx`.
+
+**Q. Why a “you want to… / open this” table?**
+
+**A.** Most readers have one job (change the email, run the app). Tables beat prose for that. Keep the happy path above the design-token appendix.
+
+**Q. Should you commit `package-lock.json` and tell people to `npm install`?**
+
+**A.** Yes. The lockfile pins transitive versions. `npm install` without a lockfile (or deleting it) can pull different minors and break a build that worked yesterday. README should say that once, near the install commands.
+
+---
+
+## 17. Pointer-driven editorial layouts
+
+**Q. How does the spotlight follow the pointer across the four-page spread?**
+
+**A.** A `pointermove` handler reads the spread's `getBoundingClientRect()`, converts the pointer from viewport pixels into percentages relative to that element, and stores `{x, y}`. Those percentages become the origin of an inline `radial-gradient(circle at x% y%, ...)`. Using `PointerEvent` covers mouse, pen, and touch-compatible pointer input with one API.
+
+**Q. Why calculate coordinates relative to the container instead of using `clientX` directly?**
+
+**A.** CSS gradient positions are relative to the element. `clientX/clientY` are relative to the viewport, so scrolling or centering the spread would displace the glow. Subtracting `rect.left/top`, dividing by `rect.width/height`, then multiplying by 100 keeps the spotlight aligned at any size.
+
+**Q. How does the “four pages” layout stay responsive?**
+
+**A.** The parent is one-column by default and becomes `md:grid-cols-2` at medium widths. Every page has its own minimum height and internal layout. This preserves the editorial spread on desktop while stacking pages in reading order on mobile—no JavaScript breakpoint logic.
+
+**Q. Why reuse `experiments` and `profile` instead of defining new card data inside the folio component?**
+
+**A.** One source of truth prevents drift. Updating a project title or email in `content.ts` updates the full experiment section and the editorial summary. The folio chooses a view (`slice(0, 6)`) but does not own the content.
+
+**Q. Is a pointer-driven React `setState` on every movement free?**
+
+**A.** No. It can trigger up to one render per pointer event. This component is small enough for that to be acceptable, but a heavier page should throttle through `requestAnimationFrame`, write CSS custom properties directly on a ref, or use motion values that bypass React renders.
+
+---
+
 ## How this file grows
 
 When we add a technical piece (routing, CMS, auth, deploy, tests, retina canvas, API route), append a numbered section with **Q / A** in the same style, plus a matching dated note in `progress.md`.
