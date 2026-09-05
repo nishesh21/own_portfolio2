@@ -1,0 +1,115 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ink: #0b0a08;
+  --cream: #f4efe4;
+  --mute: #b8b0a0;
+  --line: rgba(244, 239, 228, 0.14);
+  --lime: #c8f542;
+  --coral: #ff5e3a;
+  --sky: #7ad7ff;
+  --gold: #ffd24a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--cream);
+  background: var(--ink);
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--lime);
+  color: var(--ink);
+}
+
+.marquee {
+  display: flex;
+  gap: 2.5rem;
+  width: max-content;
+  animation: marquee 28s linear infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.35);
+    opacity: 0.6;
+  }
+}
+
+.bob {
+  animation: bob 4.5s ease-in-out infinite;
+}
+
+.spin-slow {
+  animation: spin-slow 24s linear infinite;
+}
+
+.reduce-motion .marquee,
+.reduce-motion .bob,
+.reduce-motion .spin-slow {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .marquee,
+  .bob,
+  .spin-slow {
+    animation: none;
+  }
+  [style*="animation: draw"] {
+    stroke-dashoffset: 0 !important;
+    animation: none !important;
+  }
+}
